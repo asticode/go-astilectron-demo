@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/asticode/go-astilectron"
-	"github.com/asticode/go-astilectron/bootstrap"
+	"github.com/asticode/go-astilectron-bootstrap"
 )
 
 // handleMessages handles messages
