@@ -1,6 +1,7 @@
 {
   "app_name": "Astilectron demo",
-  "app_icon_darwin_path": "resources/gopher.icns",
-  "app_icon_default_path": "resources/gopher.png",
+  "icon_path_darwin": "resources/gopher.icns",
+  "icon_path_linux": "resources/gopher.png",
+  "icon_path_windows": "resources/gopher.ico",
   "output_path": "output"
 }
