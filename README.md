@@ -21,7 +21,7 @@ Run the following commands:
     
 # Step 4: test the app
 
-The result is in the `output/<your os>/<your arch>` folder and is waiting for you to test it!
+The result is in the `output/<your os>-<your arch>` folder and is waiting for you to test it!
 
 # Step 5: bundle the app for more environments
 
