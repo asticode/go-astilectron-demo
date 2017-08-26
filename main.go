@@ -24,6 +24,7 @@ func main() {
 
 	// Run bootstrap
 	if err := bootstrap.Run(bootstrap.Options{
+		Asset:              Asset,
 		AstilectronOptions: astilectron.Options{AppName: AppName},
 		Debug:              *debug,
 		Homepage:           "index.html",
