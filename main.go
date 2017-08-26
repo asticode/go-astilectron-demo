@@ -24,10 +24,14 @@ func main() {
 
 	// Run bootstrap
 	if err := bootstrap.Run(bootstrap.Options{
-		Asset:              Asset,
-		AstilectronOptions: astilectron.Options{AppName: AppName},
-		Debug:              *debug,
-		Homepage:           "index.html",
+		Asset: Asset,
+		AstilectronOptions: astilectron.Options{
+			AppName:            AppName,
+			AppIconDarwinPath:  "resources/gopher.icns",
+			AppIconDefaultPath: "resources/gopher.png",
+		},
+		Debug:    *debug,
+		Homepage: "index.html",
 		MenuOptions: []*astilectron.MenuItemOptions{
 			{
 				Label: astilectron.PtrStr(AppName),
@@ -69,11 +73,19 @@ func main() {
 			},
 		},
 		MessageHandler: handleMessages,
-		OnWait: func(_ *astilectron.Astilectron, w *astilectron.Window, _ *astilectron.Menu, _ *astilectron.Tray, _ *astilectron.Menu) error {
+		OnWait: func(_ *astilectron.Astilectron, w *astilectron.Window, _ *astilectron.Menu, t *astilectron.Tray, _ *astilectron.Menu) error {
+			// Store global variables
 			window = w
+
+			// Add listeners on tray
+			t.On(astilectron.EventNameTrayEventClicked, func(e astilectron.Event) (deleteListener bool) { astilog.Info("Tray has been clicked!"); return; })
 			return nil
 		},
 		RestoreAssets: RestoreAssets,
+		TrayOptions: &astilectron.TrayOptions{
+			Image:   astilectron.PtrStr("resources/gopher.png"),
+			Tooltip: astilectron.PtrStr("Wow, what a beautiful tray!"),
+		},
 		WindowOptions: &astilectron.WindowOptions{
 			BackgroundColor: astilectron.PtrStr("#333"),
 			Center:          astilectron.PtrBool(true),
