@@ -78,7 +78,7 @@ func main() {
 			window = w
 
 			// Add listeners on tray
-			t.On(astilectron.EventNameTrayEventClicked, func(e astilectron.Event) (deleteListener bool) { astilog.Info("Tray has been clicked!"); return; })
+			t.On(astilectron.EventNameTrayEventClicked, func(e astilectron.Event) (deleteListener bool) { astilog.Info("Tray has been clicked!"); return })
 			return nil
 		},
 		RestoreAssets: RestoreAssets,
