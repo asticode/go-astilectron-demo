@@ -17,7 +17,7 @@ Run the following command:
 Run the following commands:
 
     $ cd $GOPATH/src/github.com/asticode/go-astilectron-demo
-    $ astilectron-bundler -v -c bundler.json
+    $ astilectron-bundler -v
     
 # Step 4: test the app
 
