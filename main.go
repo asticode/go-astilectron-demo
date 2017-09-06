@@ -83,7 +83,7 @@ func main() {
 		},
 		RestoreAssets: RestoreAssets,
 		TrayOptions: &astilectron.TrayOptions{
-			Image:   astilectron.PtrStr("resources/gopher.png"),
+			Image:   astilectron.PtrStr("resources/tray.png"),
 			Tooltip: astilectron.PtrStr("Wow, what a beautiful tray!"),
 		},
 		WindowOptions: &astilectron.WindowOptions{
