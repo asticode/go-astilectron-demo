@@ -30,7 +30,7 @@ To bundle the app for more environments, add an `environments` key to the bundle
 ```json
 "environments": [
   {"arch": "amd64", "os": "linux"},
-  {"arch": "i386", "os": "windows"}
+  {"arch": "386", "os": "windows"}
 ]
 ```
 
