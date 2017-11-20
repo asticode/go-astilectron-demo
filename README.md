@@ -12,6 +12,8 @@ Run the following command:
 
     $ go get -u github.com/asticode/go-astilectron-bundler/...
     
+And don't forget to add `$GOPATH/bin` to your `$PATH`.
+    
 # Step 3: bundle the app for your current environment
 
 Run the following commands:
