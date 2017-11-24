@@ -2,9 +2,10 @@ This package is a demo of an [astilectron](https://github.com/asticode/go-astile
 
 # Step 1: install the demo
 
-Run the following command:
+Run the following commands:
 
     $ go get -u github.com/asticode/go-astilectron-demo/...
+    $ rm $GOPATH/src/github.com/asticode/go-astilectron-demo/bind.go
 
 # Step 2: install the bundler
 
