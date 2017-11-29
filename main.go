@@ -9,12 +9,15 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Constants
+const htmlAbout = `Welcome on <b>Astilectron</b> demo!`
+
 // Vars
 var (
 	AppName string
 	BuiltAt string
-	debug   = flag.Bool("d", false, "if yes, the app is in debug mode")
-	window  *astilectron.Window
+	debug   = flag.Bool("d", false, "enables the debug mode")
+	w       *astilectron.Window
 )
 
 func main() {
@@ -32,60 +35,27 @@ func main() {
 		},
 		Debug:    *debug,
 		Homepage: "index.html",
-		MenuOptions: []*astilectron.MenuItemOptions{
-			{
-				Label: astilectron.PtrStr(AppName),
-				SubMenu: []*astilectron.MenuItemOptions{
-					{
-						Role: astilectron.MenuItemRoleClose,
+		MenuOptions: []*astilectron.MenuItemOptions{{
+			Label: astilectron.PtrStr("File"),
+			SubMenu: []*astilectron.MenuItemOptions{
+				{
+					Label: astilectron.PtrStr("About"),
+					OnClick: func(e astilectron.Event) (deleteListener bool) {
+						if err := w.SendMessage(bootstrap.MessageOut{Name: "about", Payload: htmlAbout}); err != nil {
+							astilog.Error(errors.Wrap(err, "sending about event failed"))
+						}
+						return
 					},
 				},
+				{Role: astilectron.MenuItemRoleClose},
 			},
-			{
-				Label: astilectron.PtrStr("Style"),
-				SubMenu: []*astilectron.MenuItemOptions{
-					{
-						Checked: astilectron.PtrBool(true),
-						Label:   astilectron.PtrStr("Dark"),
-						OnClick: func(e astilectron.Event) (deleteListener bool) {
-							// Send
-							if err := window.Send(bootstrap.MessageOut{Name: "set.style", Payload: "dark"}); err != nil {
-								astilog.Error(errors.Wrap(err, "setting dark style failed"))
-								return
-							}
-							return
-						},
-						Type: astilectron.MenuItemTypeRadio,
-					},
-					{
-						Label: astilectron.PtrStr("Light"),
-						OnClick: func(e astilectron.Event) (deleteListener bool) {
-							// Send
-							if err := window.Send(bootstrap.MessageOut{Name: "set.style", Payload: "light"}); err != nil {
-								astilog.Error(errors.Wrap(err, "setting dark style failed"))
-								return
-							}
-							return
-						},
-						Type: astilectron.MenuItemTypeRadio,
-					},
-				},
-			},
-		},
-		MessageHandler: handleMessages,
-		OnWait: func(_ *astilectron.Astilectron, w *astilectron.Window, _ *astilectron.Menu, t *astilectron.Tray, _ *astilectron.Menu) error {
-			// Store global variables
-			window = w
-
-			// Add listeners on tray
-			t.On(astilectron.EventNameTrayEventClicked, func(e astilectron.Event) (deleteListener bool) { astilog.Info("Tray has been clicked!"); return })
+		}},
+		OnWait: func(_ *astilectron.Astilectron, iw *astilectron.Window, _ *astilectron.Menu, _ *astilectron.Tray, _ *astilectron.Menu) error {
+			w = iw
 			return nil
 		},
-		RestoreAssets: RestoreAssets,
-		TrayOptions: &astilectron.TrayOptions{
-			Image:   astilectron.PtrStr("resources/tray.png"),
-			Tooltip: astilectron.PtrStr("Wow, what a beautiful tray!"),
-		},
+		MessageHandler: handleMessages,
+		RestoreAssets:  RestoreAssets,
 		WindowOptions: &astilectron.WindowOptions{
 			BackgroundColor: astilectron.PtrStr("#333"),
 			Center:          astilectron.PtrBool(true),

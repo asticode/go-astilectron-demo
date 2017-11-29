@@ -1,7 +1,7 @@
 .DS_Store
 Thumbs.db
 .idea/
-bind.go
+bind*
 output
 vendor
 windows.syso
