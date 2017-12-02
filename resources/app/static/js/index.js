@@ -51,19 +51,21 @@ let index = {
 
             // Process dirs
             document.getElementById("dirs").innerHTML = ""
-            index.addFolder(message.payload.path_dir.name, message.payload.path_dir.path);
             for (let i = 0; i < message.payload.dirs.length; i++) {
                 index.addFolder(message.payload.dirs[i].name, message.payload.dirs[i].path);
             }
 
             // Process files
+            document.getElementById("files_count").innerHTML = message.payload.files_count;
+            document.getElementById("files_size").innerHTML = message.payload.files_size;
             document.getElementById("files").innerHTML = "";
             if (typeof message.payload.files !== "undefined") {
+                document.getElementById("files_panel").style.display = "block";
                 let canvas = document.createElement("canvas");
                 document.getElementById("files").append(canvas);
                 new Chart(canvas, message.payload.files);
             } else {
-                document.getElementById("files").innerHTML = "No files here...";
+                document.getElementById("files_panel").style.display = "none";
             }
         })
     },
@@ -72,6 +74,9 @@ let index = {
             switch (message.name) {
                 case "about":
                     index.about(message.payload);
+                    break;
+                case "check.out.menu":
+                    asticode.notifier.info(message.payload);
                     break;
             }
         });
