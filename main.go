@@ -11,8 +11,8 @@ import (
 )
 
 // Constants
-const htmlAbout = `Welcome on <b><a href="https://github.com/asticode/go-astilectron">Astilectron</a></b> demo!<br>
-This is using the <a href="https://github.com/asticode/go-astilectron-bootstrap">bootstrap</a> and the <a href="https://github.com/asticode/go-astilectron-bundler">bundler</a>.`
+const htmlAbout = `Welcome on <b>Astilectron</b> demo!<br>
+This is using the bootstrap and the bundler.`
 
 // Vars
 var (
