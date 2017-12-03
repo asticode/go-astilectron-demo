@@ -28,6 +28,7 @@ func main() {
 	astilog.FlagInit()
 
 	// Run bootstrap
+	astilog.Debugf("Running app built at %s", BuiltAt)
 	if err := bootstrap.Run(bootstrap.Options{
 		Asset: Asset,
 		AstilectronOptions: astilectron.Options{
