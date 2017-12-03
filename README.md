@@ -1,5 +1,7 @@
 This package is a demo of an [astilectron](https://github.com/asticode/go-astilectron) app that uses the [bootstrap](https://github.com/asticode/go-astilectron-bootstrap) and the [bundler](https://github.com/asticode/go-astilectron-bundler).
 
+![screenshot](screenshot.png)
+
 # Step 1: install the demo
 
 Run the following commands:
