@@ -4,6 +4,8 @@ import (
 	"flag"
 	"time"
 
+	"encoding/json"
+
 	"github.com/asticode/go-astilectron"
 	"github.com/asticode/go-astilectron-bootstrap"
 	"github.com/asticode/go-astilog"
@@ -44,8 +46,14 @@ func main() {
 				{
 					Label: astilectron.PtrStr("About"),
 					OnClick: func(e astilectron.Event) (deleteListener bool) {
-						if err := w.SendMessage(bootstrap.MessageOut{Name: "about", Payload: htmlAbout}, func(m *astilectron.EventMessage) {
-							astilog.Info("About modal has been displayed!")
+						if err := bootstrap.SendMessage(w, "about", htmlAbout, func(m *bootstrap.MessageIn) {
+							// Unmarshal payload
+							var s string
+							if err := json.Unmarshal(m.Payload, &s); err != nil {
+								astilog.Error(errors.Wrap(err, "unmarshaling payload failed"))
+								return
+							}
+							astilog.Infof("About modal has been displayed and payload is %s!", s)
 						}); err != nil {
 							astilog.Error(errors.Wrap(err, "sending about event failed"))
 						}
@@ -59,7 +67,7 @@ func main() {
 			w = iw
 			go func() {
 				time.Sleep(5 * time.Second)
-				if err := w.SendMessage(bootstrap.MessageOut{Name: "check.out.menu", Payload: "Don't forget to check out the menu!"}); err != nil {
+				if err := bootstrap.SendMessage(w, "check.out.menu", "Don't forget to check out the menu!"); err != nil {
 					astilog.Error(errors.Wrap(err, "sending check.out.menu event failed"))
 				}
 			}()
