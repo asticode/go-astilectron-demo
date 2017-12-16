@@ -3,5 +3,5 @@ Thumbs.db
 .idea/
 bind*
 output
-vendor
+vendor*
 windows.syso
