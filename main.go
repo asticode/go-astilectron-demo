@@ -39,8 +39,7 @@ func main() {
 			AppIconDarwinPath:  "resources/icon.icns",
 			AppIconDefaultPath: "resources/icon.png",
 		},
-		Debug:    *debug,
-		Homepage: "index.html",
+		Debug: *debug,
 		MenuOptions: []*astilectron.MenuItemOptions{{
 			Label: astilectron.PtrStr("File"),
 			SubMenu: []*astilectron.MenuItemOptions{
@@ -64,24 +63,26 @@ func main() {
 				{Role: astilectron.MenuItemRoleClose},
 			},
 		}},
-		OnWait: func(_ *astilectron.Astilectron, iw *astilectron.Window, _ *astilectron.Menu, _ *astilectron.Tray, _ *astilectron.Menu) error {
-			w = iw
+		OnWait: func(_ *astilectron.Astilectron, ws []*astilectron.Window, _ *astilectron.Menu, _ *astilectron.Tray, _ *astilectron.Menu) error {
 			go func() {
 				time.Sleep(5 * time.Second)
-				if err := bootstrap.SendMessage(w, "check.out.menu", "Don't forget to check out the menu!"); err != nil {
+				if err := bootstrap.SendMessage(ws[0], "check.out.menu", "Don't forget to check out the menu!"); err != nil {
 					astilog.Error(errors.Wrap(err, "sending check.out.menu event failed"))
 				}
 			}()
 			return nil
 		},
-		MessageHandler: handleMessages,
-		RestoreAssets:  RestoreAssets,
-		WindowOptions: &astilectron.WindowOptions{
-			BackgroundColor: astilectron.PtrStr("#333"),
-			Center:          astilectron.PtrBool(true),
-			Height:          astilectron.PtrInt(700),
-			Width:           astilectron.PtrInt(700),
-		},
+		RestoreAssets: RestoreAssets,
+		Windows: []*bootstrap.Window{{
+			Homepage:       "index.html",
+			MessageHandler: handleMessages,
+			Options: &astilectron.WindowOptions{
+				BackgroundColor: astilectron.PtrStr("#333"),
+				Center:          astilectron.PtrBool(true),
+				Height:          astilectron.PtrInt(700),
+				Width:           astilectron.PtrInt(700),
+			},
+		}},
 	}); err != nil {
 		astilog.Fatal(errors.Wrap(err, "running bootstrap failed"))
 	}
