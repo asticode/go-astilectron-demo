@@ -64,9 +64,10 @@ func main() {
 			},
 		}},
 		OnWait: func(_ *astilectron.Astilectron, ws []*astilectron.Window, _ *astilectron.Menu, _ *astilectron.Tray, _ *astilectron.Menu) error {
+			w = ws[0]
 			go func() {
 				time.Sleep(5 * time.Second)
-				if err := bootstrap.SendMessage(ws[0], "check.out.menu", "Don't forget to check out the menu!"); err != nil {
+				if err := bootstrap.SendMessage(w, "check.out.menu", "Don't forget to check out the menu!"); err != nil {
 					astilog.Error(errors.Wrap(err, "sending check.out.menu event failed"))
 				}
 			}()
