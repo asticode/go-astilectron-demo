@@ -16,16 +16,18 @@ Run the following commands:
 Run the following command:
 
     $ go get -u github.com/asticode/go-astilectron-bundler/...
-    
+    $ go install github.com/asticode/go-astilectron-bundler/astilectron-bundler
+
+Go get and build the binary.
 And don't forget to add `$GOPATH/bin` to your `$PATH`.
-    
+
 # Step 3: bundle the app for your current environment
 
 Run the following commands:
 
     $ cd $GOPATH/src/github.com/asticode/go-astilectron-demo
     $ astilectron-bundler -v
-    
+
 # Step 4: test the app
 
 The result is in the `output/<your os>-<your arch>` folder and is waiting for you to test it!
