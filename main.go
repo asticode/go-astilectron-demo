@@ -18,10 +18,12 @@ This is using the bootstrap and the bundler.`
 
 // Vars
 var (
-	AppName string
-	BuiltAt string
-	debug   = flag.Bool("d", false, "enables the debug mode")
-	w       *astilectron.Window
+	AppName            string
+	BuiltAt            string
+	VersionAstilectron string
+	VersionElectron    string
+	debug              = flag.Bool("d", true, "enables the debug mode")
+	w                  *astilectron.Window
 )
 
 func main() {
@@ -38,6 +40,8 @@ func main() {
 			AppName:            AppName,
 			AppIconDarwinPath:  "resources/icon.icns",
 			AppIconDefaultPath: "resources/icon.png",
+			VersionAstilectron: VersionAstilectron,
+			VersionElectron:    VersionElectron,
 		},
 		Debug: *debug,
 		MenuOptions: []*astilectron.MenuItemOptions{{
@@ -75,7 +79,8 @@ func main() {
 		},
 		RestoreAssets: RestoreAssets,
 		Windows: []*bootstrap.Window{{
-			Homepage:       "index.html",
+			// Homepage:       "index.html",
+			Homepage:       "https://github.com",
 			MessageHandler: handleMessages,
 			Options: &astilectron.WindowOptions{
 				BackgroundColor: astilectron.PtrStr("#333"),
