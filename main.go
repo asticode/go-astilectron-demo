@@ -79,8 +79,7 @@ func main() {
 		},
 		RestoreAssets: RestoreAssets,
 		Windows: []*bootstrap.Window{{
-			// Homepage:       "index.html",
-			Homepage:       "https://github.com",
+			Homepage:       "index.html",
 			MessageHandler: handleMessages,
 			Options: &astilectron.WindowOptions{
 				BackgroundColor: astilectron.PtrStr("#333"),
