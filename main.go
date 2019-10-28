@@ -16,12 +16,16 @@ import (
 const htmlAbout = `Welcome on <b>Astilectron</b> demo!<br>
 This is using the bootstrap and the bundler.`
 
-// Vars
+// Vars injected via ldflags injected by bundler
 var (
 	AppName            string
 	BuiltAt            string
 	VersionAstilectron string
 	VersionElectron    string
+)
+
+// Application Vars
+var (
 	debug              = flag.Bool("d", true, "enables the debug mode")
 	w                  *astilectron.Window
 )
