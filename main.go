@@ -26,8 +26,8 @@ var (
 
 // Application Vars
 var (
-	debug              = flag.Bool("d", true, "enables the debug mode")
-	w                  *astilectron.Window
+	debug = flag.Bool("d", true, "enables the debug mode")
+	w     *astilectron.Window
 )
 
 func main() {
