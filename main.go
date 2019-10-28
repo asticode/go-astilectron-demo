@@ -16,7 +16,7 @@ import (
 const htmlAbout = `Welcome on <b>Astilectron</b> demo!<br>
 This is using the bootstrap and the bundler.`
 
-// Vars injected via ldflags injected by bundler
+// Vars injected via ldflags by bundler
 var (
 	AppName            string
 	BuiltAt            string
