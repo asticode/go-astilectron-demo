@@ -16,12 +16,18 @@ import (
 const htmlAbout = `Welcome on <b>Astilectron</b> demo!<br>
 This is using the bootstrap and the bundler.`
 
-// Vars
+// Vars injected via ldflags by bundler
 var (
-	AppName string
-	BuiltAt string
-	debug   = flag.Bool("d", false, "enables the debug mode")
-	w       *astilectron.Window
+	AppName            string
+	BuiltAt            string
+	VersionAstilectron string
+	VersionElectron    string
+)
+
+// Application Vars
+var (
+	debug = flag.Bool("d", true, "enables the debug mode")
+	w     *astilectron.Window
 )
 
 func main() {
@@ -38,6 +44,8 @@ func main() {
 			AppName:            AppName,
 			AppIconDarwinPath:  "resources/icon.icns",
 			AppIconDefaultPath: "resources/icon.png",
+			VersionAstilectron: VersionAstilectron,
+			VersionElectron:    VersionElectron,
 		},
 		Debug: *debug,
 		MenuOptions: []*astilectron.MenuItemOptions{{
