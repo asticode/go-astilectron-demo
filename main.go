@@ -32,6 +32,7 @@ var (
 
 func main() {
 	// Init
+	astilog.SetHandyFlags()
 	flag.Parse()
 	astilog.FlagInit()
 
