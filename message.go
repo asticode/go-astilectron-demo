@@ -11,7 +11,7 @@ import (
 
 	"github.com/asticode/go-astichartjs"
 	"github.com/asticode/go-astilectron"
-	"github.com/asticode/go-astilectron-bootstrap"
+	bootstrap "github.com/asticode/go-astilectron-bootstrap"
 )
 
 // handleMessages handles messages
