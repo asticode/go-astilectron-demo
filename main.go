@@ -6,8 +6,9 @@ import (
 
 	"encoding/json"
 
+	"github.com/asticode/go-astikit"
 	"github.com/asticode/go-astilectron"
-	"github.com/asticode/go-astilectron-bootstrap"
+	bootstrap "github.com/asticode/go-astilectron-bootstrap"
 	"github.com/asticode/go-astilog"
 	"github.com/pkg/errors"
 )
@@ -45,15 +46,16 @@ func main() {
 			AppName:            AppName,
 			AppIconDarwinPath:  "resources/icon.icns",
 			AppIconDefaultPath: "resources/icon.png",
+			SingleInstance:     true,
 			VersionAstilectron: VersionAstilectron,
 			VersionElectron:    VersionElectron,
 		},
 		Debug: *debug,
 		MenuOptions: []*astilectron.MenuItemOptions{{
-			Label: astilectron.PtrStr("File"),
+			Label: astikit.StrPtr("File"),
 			SubMenu: []*astilectron.MenuItemOptions{
 				{
-					Label: astilectron.PtrStr("About"),
+					Label: astikit.StrPtr("About"),
 					OnClick: func(e astilectron.Event) (deleteListener bool) {
 						if err := bootstrap.SendMessage(w, "about", htmlAbout, func(m *bootstrap.MessageIn) {
 							// Unmarshal payload
@@ -87,10 +89,10 @@ func main() {
 			Homepage:       "index.html",
 			MessageHandler: handleMessages,
 			Options: &astilectron.WindowOptions{
-				BackgroundColor: astilectron.PtrStr("#333"),
-				Center:          astilectron.PtrBool(true),
-				Height:          astilectron.PtrInt(700),
-				Width:           astilectron.PtrInt(700),
+				BackgroundColor: astikit.StrPtr("#333"),
+				Center:          astikit.BoolPtr(true),
+				Height:          astikit.IntPtr(700),
+				Width:           astikit.IntPtr(700),
 			},
 		}},
 	}); err != nil {
