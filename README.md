@@ -26,7 +26,7 @@ And don't forget to add `$GOPATH/bin` to your `$PATH`.
 Run the following commands:
 
     $ cd $GOPATH/src/github.com/asticode/go-astilectron-demo
-    $ astilectron-bundler -v
+    $ astilectron-bundler
 
 # Step 4: test the app
 

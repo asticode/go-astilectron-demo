@@ -1,10 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"time"
-
-	"encoding/json"
 
 	"github.com/asticode/go-astikit"
 	"github.com/asticode/go-astilectron"
@@ -50,7 +49,8 @@ func main() {
 			VersionAstilectron: VersionAstilectron,
 			VersionElectron:    VersionElectron,
 		},
-		Debug: *debug,
+		Debug:  *debug,
+		Logger: astilog.GetLogger(),
 		MenuOptions: []*astilectron.MenuItemOptions{{
 			Label: astikit.StrPtr("File"),
 			SubMenu: []*astilectron.MenuItemOptions{
