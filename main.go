@@ -3,13 +3,13 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"time"
 
 	"github.com/asticode/go-astikit"
 	"github.com/asticode/go-astilectron"
 	bootstrap "github.com/asticode/go-astilectron-bootstrap"
 	"github.com/asticode/go-astilog"
-	"github.com/pkg/errors"
 )
 
 // Constants
@@ -31,13 +31,15 @@ var (
 )
 
 func main() {
-	// Init
-	astilog.SetHandyFlags()
+	// Parse flags
 	flag.Parse()
-	astilog.FlagInit()
+
+	// Create logger
+	l := astilog.NewFromFlags()
+	defer l.Close()
 
 	// Run bootstrap
-	astilog.Debugf("Running app built at %s", BuiltAt)
+	l.Debugf("Running app built at %s", BuiltAt)
 	if err := bootstrap.Run(bootstrap.Options{
 		Asset:    Asset,
 		AssetDir: AssetDir,
@@ -50,7 +52,7 @@ func main() {
 			VersionElectron:    VersionElectron,
 		},
 		Debug:  *debug,
-		Logger: astilog.GetLogger(),
+		Logger: l,
 		MenuOptions: []*astilectron.MenuItemOptions{{
 			Label: astikit.StrPtr("File"),
 			SubMenu: []*astilectron.MenuItemOptions{
@@ -61,12 +63,12 @@ func main() {
 							// Unmarshal payload
 							var s string
 							if err := json.Unmarshal(m.Payload, &s); err != nil {
-								astilog.Error(errors.Wrap(err, "unmarshaling payload failed"))
+								l.Error(fmt.Errorf("unmarshaling payload failed: %w", err))
 								return
 							}
-							astilog.Infof("About modal has been displayed and payload is %s!", s)
+							l.Infof("About modal has been displayed and payload is %s!", s)
 						}); err != nil {
-							astilog.Error(errors.Wrap(err, "sending about event failed"))
+							l.Error(fmt.Errorf("sending about event failed: %w", err))
 						}
 						return
 					},
@@ -79,7 +81,7 @@ func main() {
 			go func() {
 				time.Sleep(5 * time.Second)
 				if err := bootstrap.SendMessage(w, "check.out.menu", "Don't forget to check out the menu!"); err != nil {
-					astilog.Error(errors.Wrap(err, "sending check.out.menu event failed"))
+					l.Error(fmt.Errorf("sending check.out.menu event failed: %w", err))
 				}
 			}()
 			return nil
@@ -96,6 +98,6 @@ func main() {
 			},
 		}},
 	}); err != nil {
-		astilog.Fatal(errors.Wrap(err, "running bootstrap failed"))
+		l.Fatal(fmt.Errorf("running bootstrap failed: %w", err))
 	}
 }
