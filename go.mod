@@ -7,5 +7,4 @@ require (
 	github.com/asticode/go-astikit v0.2.0
 	github.com/asticode/go-astilectron v0.11.0
 	github.com/asticode/go-astilectron-bootstrap v0.3.0
-	github.com/asticode/go-astilog v1.5.0
 )

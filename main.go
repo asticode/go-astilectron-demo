@@ -4,12 +4,12 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/asticode/go-astikit"
 	"github.com/asticode/go-astilectron"
 	bootstrap "github.com/asticode/go-astilectron-bootstrap"
-	"github.com/asticode/go-astilog"
 )
 
 // Constants
@@ -35,11 +35,10 @@ func main() {
 	flag.Parse()
 
 	// Create logger
-	l := astilog.NewFromFlags()
-	defer l.Close()
+	l := log.New(log.Writer(), log.Prefix(), log.Flags())
 
 	// Run bootstrap
-	l.Debugf("Running app built at %s", BuiltAt)
+	l.Printf("Running app built at %s\n", BuiltAt)
 	if err := bootstrap.Run(bootstrap.Options{
 		Asset:    Asset,
 		AssetDir: AssetDir,
@@ -63,12 +62,12 @@ func main() {
 							// Unmarshal payload
 							var s string
 							if err := json.Unmarshal(m.Payload, &s); err != nil {
-								l.Error(fmt.Errorf("unmarshaling payload failed: %w", err))
+								l.Println(fmt.Errorf("unmarshaling payload failed: %w", err))
 								return
 							}
-							l.Infof("About modal has been displayed and payload is %s!", s)
+							l.Printf("About modal has been displayed and payload is %s!\n", s)
 						}); err != nil {
-							l.Error(fmt.Errorf("sending about event failed: %w", err))
+							l.Println(fmt.Errorf("sending about event failed: %w", err))
 						}
 						return
 					},
@@ -81,7 +80,7 @@ func main() {
 			go func() {
 				time.Sleep(5 * time.Second)
 				if err := bootstrap.SendMessage(w, "check.out.menu", "Don't forget to check out the menu!"); err != nil {
-					l.Error(fmt.Errorf("sending check.out.menu event failed: %w", err))
+					l.Println(fmt.Errorf("sending check.out.menu event failed: %w", err))
 				}
 			}()
 			return nil
