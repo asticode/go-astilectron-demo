@@ -6,8 +6,8 @@ github.com/asticode/go-astikit v0.2.0/go.mod h1:h4ly7idim1tNhaVkdVBeXQZEE3L0xblP
 github.com/asticode/go-astikit v0.3.0 h1:2MZ6yraBbTTiFdq1dzqzhIwTseKwsCQes8ShQ1Zcx/4=
 github.com/asticode/go-astikit v0.3.0/go.mod h1:h4ly7idim1tNhaVkdVBeXQZEE3L0xblP7fCWbgwipF0=
 github.com/asticode/go-astilectron v0.11.0/go.mod h1:TZQGUq3VWlNBL7OSWa+U7KNDVPSxN0RfQnY/CLWvHjQ=
-github.com/asticode/go-astilectron v0.12.0 h1:cpCiGwUbYjooqya1GeCIV4Anus6NAhkT/gNvMclouSo=
-github.com/asticode/go-astilectron v0.12.0/go.mod h1:TZQGUq3VWlNBL7OSWa+U7KNDVPSxN0RfQnY/CLWvHjQ=
+github.com/asticode/go-astilectron v0.12.1 h1:KzKfTTj8A5Tr2o0Udif4cKvzRv8OAS/3ZVkVfT3f9JM=
+github.com/asticode/go-astilectron v0.12.1/go.mod h1:TZQGUq3VWlNBL7OSWa+U7KNDVPSxN0RfQnY/CLWvHjQ=
 github.com/asticode/go-astilectron-bootstrap v0.3.0 h1:JqvVmu/Do4V1CAgKZMcAzL6TSf6ONsBfCUo7vUM8QpY=
 github.com/asticode/go-astilectron-bootstrap v0.3.0/go.mod h1:j/fFeo5sxMnHesc3jD6doFMEa7nTqT/D2tMpnLMUTac=
 github.com/asticode/go-astilectron-bundler v0.3.0 h1:8Ja34ENKKnyd5frNuMhXg4eYMXHNNuENEwTHmgptW8Q=
