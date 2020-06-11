@@ -5,6 +5,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os/exec"
+	"strings"
 	"time"
 
 	"github.com/asticode/go-astikit"
@@ -26,8 +28,9 @@ var (
 
 // Application Vars
 var (
-	debug = flag.Bool("d", true, "enables the debug mode")
-	w     *astilectron.Window
+	uitest = flag.Int("UITEST", 0, "if non-zero, the port that the uitest will use to attach to the main process's listener")
+	debug  = flag.Bool("d", true, "enables the debug mode")
+	w      *astilectron.Window
 )
 
 func main() {
@@ -37,9 +40,34 @@ func main() {
 	// Create logger
 	l := log.New(log.Writer(), log.Prefix(), log.Flags())
 
+	/// these are only overrridden if the -UITEST flag passed an alternate port
+	var executer = astilectron.DefaultExecuter
+	var acceptTimeout = astilectron.DefaultAcceptTCPTimeout
+	var adapter bootstrap.AstilectronAdapter = nil
+	var astiPort = 0
+
+	if *uitest != 0 {
+		astiPort = *uitest
+
+		executer = func(l astikit.SeverityLogger, a *astilectron.Astilectron, cmd *exec.Cmd) (err error) {
+			// We wait for the test framework to start the renderer process
+			l.Infof("======= Waiting for test framework to start %s\n", strings.Join(cmd.Args, " "))
+			return
+		}
+
+		// give the test framework plenty of time to startup
+		acceptTimeout = time.Minute * 3
+
+		adapter = func(a *astilectron.Astilectron) {
+			// configure astilectron to not start the renderer process; let the test framework attach itself
+			a.SetExecuter(executer)
+		}
+	}
+
 	// Run bootstrap
 	l.Printf("Running app built at %s\n", BuiltAt)
 	if err := bootstrap.Run(bootstrap.Options{
+		Adapter:  adapter, // used to coordinate the alternate startup used by the UITEST
 		Asset:    Asset,
 		AssetDir: AssetDir,
 		AstilectronOptions: astilectron.Options{
@@ -49,6 +77,10 @@ func main() {
 			SingleInstance:     true,
 			VersionAstilectron: VersionAstilectron,
 			VersionElectron:    VersionElectron,
+
+			// for UITEST support:
+			TCPPort:          &astiPort,
+			AcceptTCPTimeout: acceptTimeout,
 		},
 		Debug:  *debug,
 		Logger: l,
