@@ -13,11 +13,18 @@ global.before(() => {
 });
 
 // Map nodejs arch to golang arch
-let archMap = new Map([
-  ["arm", "arm"],
-  ["x86", "win32"],
-  ["x64", "amd64"],
-]);
+let archMap = {
+  "arm": "arm",
+  "ia32": "386",
+  "x86": "386",
+  "x64": "amd64",
+  "ia64": "amd64"
+};
+
+if (archMap[process.arch] === undefined) {
+  console.log(`FATAL: unhandled platform/processor type (${process.arch}) - add your variant to archMap in test/hooks.js`);
+  process.exit(1);
+}
 
 function mainExe() {
   if (process.platform === 'darwin') {
@@ -27,7 +34,7 @@ function mainExe() {
   } else if (process.platform === 'win32') {
     return `../output/windows-${archMap[process.arch]}/${APPNAME}.exe`;
   } else {
-    console.log("FATAL: unhandled platform - add your variant here");
+    console.log("FATAL: unhandled platform/os - add your variant here");
     process.exit(1);
   }
 }
@@ -38,7 +45,7 @@ function electronExe() {
   } else if (process.platform === 'linux') {
     return `../output/linux-${archMap[process.arch]}/vendor/electron-linux-${archMap[process.arch]}/electron`;
   } else if (process.platform === 'win32') {
-    return `${process.env.APPDATA}/Roaming/${APPNAME}/vendor/electron-windows-${archMap[process.arch]}/Electron.exe`;
+    return `${process.env.APPDATA}/${APPNAME}/vendor/electron-windows-${archMap[process.arch]}/Electron.exe`;
   } else {
     console.log("FATAL: unhandled platform - add your variant here");
     process.exit(1);
@@ -51,7 +58,7 @@ function astilectronJS() {
   } else if (process.platform === 'linux') {
     return `../output/linux-${archMap[process.arch]}/vendor/vendor/astilectron/main.js`;
   } else if (process.platform === 'win32') {
-    return `${process.env.APPDATA}/Roaming/${APPNAME}/vendor/astilectron/main.js`;
+    return `${process.env.APPDATA}/${APPNAME}/vendor/astilectron/main.js`;
   } else {
     console.log("FATAL: unhandled platform - add your variant here");
     process.exit(1);
@@ -60,6 +67,7 @@ function astilectronJS() {
 
 module.exports = {
   async startMainApp() {
+    console.log(`node arch: "${process.arch}"   golang arch: "${archMap[process.arch]}"`)
     console.log(`Starting main exe: ${mainExe()}`);
     exec(`"${mainExe()}" -UITEST ${PORT}`, (error, stdout, stderr) => {
       if (error) {
