@@ -1,5 +1,4 @@
 const hooks = require('./hooks');
-const config = require('../config').get(process.env.NODE_ENV);
 
 var app;
 
