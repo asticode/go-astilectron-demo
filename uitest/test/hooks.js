@@ -28,7 +28,7 @@ if (archMap[process.arch] === undefined) {
 
 function mainExe() {
   if (process.platform === 'darwin') {
-    return `../output/darwin-amd64/${APPNAME}.app/Contents/MacOS/${APPNAME}`;
+    return `../output/darwin-${archMap[process.arch]}/${APPNAME}.app/Contents/MacOS/${APPNAME}`;
   } else if (process.platform === 'linux') {
     return `../output/linux-${archMap[process.arch]}/${APPNAME}`;
   } else if (process.platform === 'win32') {
@@ -41,7 +41,7 @@ function mainExe() {
 
 function electronExe() {
   if (process.platform === 'darwin') {
-    return `../output/darwin-amd64/${APPNAME}.app/Contents/MacOS/vendor/electron-darwin-amd64/${APPNAME}.app/Contents/MacOS/${APPNAME}`;
+    return `../output/darwin-${archMap[process.arch]}/${APPNAME}.app/Contents/MacOS/vendor/electron-darwin-${archMap[process.arch]}/${APPNAME}.app/Contents/MacOS/${APPNAME}`;
   } else if (process.platform === 'linux') {
     return `../output/linux-${archMap[process.arch]}/vendor/electron-linux-${archMap[process.arch]}/electron`;
   } else if (process.platform === 'win32') {
@@ -54,7 +54,7 @@ function electronExe() {
 
 function astilectronJS() {
   if (process.platform === 'darwin') {
-    return `../output/darwin-amd64/${APPNAME}.app/Contents/MacOS/vendor/astilectron/main.js`;
+    return `../output/darwin-${archMap[process.arch]}/${APPNAME}.app/Contents/MacOS/vendor/astilectron/main.js`;
   } else if (process.platform === 'linux') {
     return `../output/linux-${archMap[process.arch]}/vendor/vendor/astilectron/main.js`;
   } else if (process.platform === 'win32') {
