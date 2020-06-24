@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/asticode/go-astikit"
@@ -26,16 +27,17 @@ var (
 
 // Application Vars
 var (
-	debug = flag.Bool("d", true, "enables the debug mode")
+	fs    = flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
+	debug = fs.Bool("d", false, "enables the debug mode")
 	w     *astilectron.Window
 )
 
 func main() {
-	// Parse flags
-	flag.Parse()
-
 	// Create logger
 	l := log.New(log.Writer(), log.Prefix(), log.Flags())
+
+	// Parse flags
+	fs.Parse(os.Args[1:])
 
 	// Run bootstrap
 	l.Printf("Running app built at %s\n", BuiltAt)
