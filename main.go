@@ -7,6 +7,7 @@ import (
 	"log"
 	"os/exec"
 	"strings"
+	"os"
 	"time"
 
 	"github.com/asticode/go-astikit"
@@ -28,17 +29,18 @@ var (
 
 // Application Vars
 var (
-	uitest = flag.Int("UITEST", 0, "if non-zero, the port that the uitest will use to attach to the main process's listener")
-	debug  = flag.Bool("d", true, "enables the debug mode")
-	w      *astilectron.Window
+	fs    = flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
+	debug = fs.Bool("d", false, "enables the debug mode")
+	uitest = fs.Int("UITEST", 0, "if non-zero, the port that the uitest will use to attach to the main process's listener")
+	w     *astilectron.Window
 )
 
 func main() {
-	// Parse flags
-	flag.Parse()
-
 	// Create logger
 	l := log.New(log.Writer(), log.Prefix(), log.Flags())
+
+  // Parse flags
+	fs.Parse(os.Args[1:])
 
 	/// these are only overrridden if the -UITEST flag passed an alternate port
 	var executer = astilectron.DefaultExecuter
