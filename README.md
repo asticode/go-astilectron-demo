@@ -44,3 +44,7 @@ To bundle the app for more environments, add an `environments` key to the bundle
 ```
 
 and repeat **step 3**.
+
+# Integration testing
+
+A simple Spectron based integration test is included in the `uitest` subdirectory.  See its [README.md](uitest/README.md) for details.
