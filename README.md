@@ -9,7 +9,7 @@ It's also the subject of this [blog post](https://medium.com/@social_57971/how-t
 Run the following commands:
 
     $ go get -u github.com/asticode/go-astilectron-demo/...
-    $ rm $GOPATH/src/github.com/asticode/go-astilectron-demo/bind.go
+    $ rm {root_of_this_repo}/bind.go 
 
 # Step 2: install the bundler
 
@@ -25,7 +25,7 @@ And don't forget to add `$GOPATH/bin` to your `$PATH`.
 
 Run the following commands:
 
-    $ cd $GOPATH/src/github.com/asticode/go-astilectron-demo
+    $ cd {root_of_this_repo}
     $ astilectron-bundler
 
 # Step 4: test the app
