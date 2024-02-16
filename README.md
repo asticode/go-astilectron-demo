@@ -4,6 +4,10 @@ It's also the subject of this [blog post](https://medium.com/@social_57971/how-t
 
 ![screenshot](screenshot.png)
 
+# Warning
+
+This project is not maintained anymore.
+
 # Step 1: install the demo
 
 Run the following commands:
